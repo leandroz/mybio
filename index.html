@@ -122,6 +122,37 @@
       color: var(--accent);
     }
 
+    .socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .socials a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dim);
+      transition: all 0.2s ease;
+    }
+
+    .socials a:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    .socials a svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
     .divider {
       height: 1px;
       background: var(--border);
@@ -191,6 +222,7 @@
     .project:nth-child(4) { animation-delay: 0.31s; }
     .project:nth-child(5) { animation-delay: 0.38s; }
     .project:nth-child(6) { animation-delay: 0.45s; }
+    .project:nth-child(7) { animation-delay: 0.52s; }
 
     .project::before {
       content: '';
@@ -240,14 +272,10 @@
       z-index: 1;
     }
 
-    .project-icon svg {
-      width: 22px;
-      height: 22px;
-      stroke: var(--accent);
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .project-icon img {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
     }
 
     .project-body {
@@ -363,11 +391,22 @@
     <header class="header">
       <div class="prompt-line">
         <span class="chevron">></span>
-        <span class="path">~/projects</span>
-        <span>ls --all</span>
+        <span class="path">~/buenos-aires</span>
+        <span>whoami</span>
       </div>
       <h1 class="name">Leandro Zubrezki<span class="cursor"></span></h1>
-      <p class="tagline">Building tools that automate the boring stuff.<br><span class="flag">--focus</span> productivity, AI, integrations</p>
+      <p class="tagline">Self-taught developer turned indie maker. Dropped out of college, freelanced for years, and in 2020 went all in on building my own products. I love creating tools that connect the apps you already use.<br><br><span class="flag">"When you build things and make them available for others to use, good things happen, always."</span></p>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/leandrozubrezki/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://x.com/LeanZubrezki" target="_blank" rel="noopener" aria-label="X">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://t.me/leanzubrezki" target="_blank" rel="noopener" aria-label="Telegram">
+          <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+      </div>
     </header>
 
     <div class="divider"></div>
@@ -378,10 +417,7 @@
 
       <a href="https://sync2sheets.com" target="_blank" rel="noopener" class="project">
         <div class="project-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z"/>
-            <path d="M17 14v3h-3M14 17l6-6" />
-          </svg>
+          <img src="https://www.google.com/s2/favicons?domain=sync2sheets.com&sz=64" alt="Sync2Sheets">
         </div>
         <div class="project-body">
           <div class="project-header">
@@ -395,11 +431,7 @@
 
       <a href="https://quicktion.io" target="_blank" rel="noopener" class="project">
         <div class="project-icon">
-          <svg viewBox="0 0 24 24">
-            <rect x="3" y="5" width="18" height="14" rx="2"/>
-            <path d="M3 9h18"/>
-            <path d="M8 13h4"/>
-          </svg>
+          <img src="https://www.google.com/s2/favicons?domain=quicktion.io&sz=64" alt="Quicktion">
         </div>
         <div class="project-body">
           <div class="project-header">
@@ -413,10 +445,7 @@
 
       <a href="https://skilledagents.ai" target="_blank" rel="noopener" class="project">
         <div class="project-icon">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-          </svg>
+          <img src="https://www.google.com/s2/favicons?domain=skilledagents.ai&sz=64" alt="SkilledAgents">
         </div>
         <div class="project-body">
           <div class="project-header">
@@ -430,10 +459,7 @@
 
       <a href="https://aeralis.ai" target="_blank" rel="noopener" class="project">
         <div class="project-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-            <path d="M8 12h.01M12 12h.01M16 12h.01"/>
-          </svg>
+          <img src="https://www.google.com/s2/favicons?domain=aeralis.ai&sz=64" alt="Aeralis">
         </div>
         <div class="project-body">
           <div class="project-header">
@@ -447,11 +473,7 @@
 
       <a href="https://vibelo.ai" target="_blank" rel="noopener" class="project">
         <div class="project-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
-          </svg>
+          <img src="https://www.google.com/s2/favicons?domain=vibelo.ai&sz=64" alt="Vibelo">
         </div>
         <div class="project-body">
           <div class="project-header">
@@ -465,10 +487,7 @@
 
       <a href="https://jaguarsheet.com" target="_blank" rel="noopener" class="project">
         <div class="project-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M3 3h18v18H3z"/>
-            <path d="M3 9h18M3 15h18M9 3v18"/>
-          </svg>
+          <img src="https://www.google.com/s2/favicons?domain=jaguarsheet.com&sz=64" alt="Jaguar Sheet">
         </div>
         <div class="project-body">
           <div class="project-header">
@@ -477,6 +496,20 @@
           </div>
           <p class="project-desc">Sync Mercado Libre sales, inventory, and ads into Google Sheets.</p>
           <p class="project-url">jaguarsheet.com</p>
+        </div>
+      </a>
+
+      <a href="https://t.me/+slRrjou-0vc3ZWEx" target="_blank" rel="noopener" class="project">
+        <div class="project-icon">
+          <img src="https://www.google.com/s2/favicons?domain=claude.ai&sz=64" alt="Claude Argentina">
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <span class="project-name">Claude Argentina 🇦🇷</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+          <p class="project-desc">Spanish-speaking Telegram community for Claude enthusiasts in Argentina.</p>
+          <p class="project-url">Telegram Group</p>
         </div>
       </a>
 
