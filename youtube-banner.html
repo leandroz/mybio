@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!--
+    YouTube channel banner — 2048 × 1152
+    Safe area (visible on ALL devices, mobile included): center 1235 × 338
+    Keep all critical text inside .safe-area. The bleed corners are decorative
+    only — they get cropped on phones and only show on desktop / TV.
+    Export: open this file at a 2048×1152 viewport and screenshot the body.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 2048px;
+      height: 1152px;
+      overflow: hidden;
+      background: #0d0d0d;
+      font-family: 'JetBrains Mono', monospace;
+      color: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Noise */
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    /* Scanlines */
+    body::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.03) 2px,
+        rgba(0, 0, 0, 0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Subtle grid background */
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232, 151, 108, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232, 151, 108, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      z-index: 0;
+    }
+
+    /* Glow orbs — same palette as x-banner.html */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      z-index: 0;
+    }
+
+    .orb-1 {
+      width: 520px;
+      height: 520px;
+      background: rgba(232, 151, 108, 0.10);
+      top: -140px;
+      left: 220px;
+    }
+
+    .orb-2 {
+      width: 460px;
+      height: 460px;
+      background: rgba(78, 201, 144, 0.06);
+      bottom: -140px;
+      right: 280px;
+    }
+
+    /* Decorative bleed: terminal log lines (cropped on mobile, shown on desktop / TV) */
+    .bleed-log {
+      position: absolute;
+      font-size: 14px;
+      color: #2a2a2a;
+      line-height: 1.7;
+      z-index: 1;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .bleed-log.tl { top: 100px; left: 140px; }
+    .bleed-log.tr { top: 100px; right: 140px; text-align: right; }
+    .bleed-log.bl { bottom: 100px; left: 140px; }
+    .bleed-log.br { bottom: 100px; right: 140px; text-align: right; }
+
+    .bleed-log .accent { color: rgba(232, 151, 108, 0.55); }
+    .bleed-log .green  { color: rgba(78, 201, 144, 0.55); }
+
+    /* Safe area: 1235 × 338 centered — visible on EVERY device */
+    .safe-area {
+      width: 1235px;
+      height: 338px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      /* Uncomment while iterating to visualize the safe-area boundary:
+      outline: 1px dashed rgba(232, 151, 108, 0.4); */
+    }
+
+    .prompt {
+      font-size: 18px;
+      color: #6b6b6b;
+      margin-bottom: 18px;
+    }
+
+    .prompt .chevron { color: #e8976c; font-weight: 700; }
+    .prompt .path    { color: #4ec990; }
+
+    .name {
+      font-family: 'Space Mono', monospace;
+      font-size: 76px;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      margin-bottom: 18px;
+      color: #e0e0e0;
+      white-space: nowrap;
+    }
+
+    .tagline {
+      font-size: 22px;
+      color: #6b6b6b;
+      line-height: 1.6;
+      margin-bottom: 26px;
+    }
+
+    .tagline .accent { color: #e8976c; }
+    .tagline .green  { color: #4ec990; }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 22px;
+      color: #e8976c;
+      padding: 12px 24px;
+      border: 1px solid rgba(232, 151, 108, 0.35);
+      border-radius: 8px;
+      background: rgba(232, 151, 108, 0.08);
+      box-shadow: 0 0 40px rgba(232, 151, 108, 0.08);
+    }
+
+    .cta .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 22px;
+      background: #e8976c;
+      vertical-align: text-bottom;
+      margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- Decorative bleed (cropped on mobile, visible on desktop / TV) -->
+  <div class="bleed-log tl">
+    <span class="accent">&gt;</span> <span class="green">~/youtube</span> ls -la episodes/<br>
+    <span class="accent">&gt;</span> total 0<br>
+    <span class="accent">&gt;</span> drwxr-xr-x  loading...
+  </div>
+
+  <div class="bleed-log tr">
+    [<span class="green">●</span>] recording: ON<br>
+    [<span class="accent">●</span>] mic: live<br>
+    [<span class="green">●</span>] cam: 1080p
+  </div>
+
+  <div class="bleed-log bl">
+    <span class="accent">&gt;</span> tail -f build.log<br>
+    <span class="accent">&gt;</span> shipping new product...<br>
+    <span class="accent">&gt;</span> claude tip incoming
+  </div>
+
+  <div class="bleed-log br">
+    <span class="green">●</span> sync2sheets · quicktion<br>
+    <span class="green">●</span> skilledagents · aeralis<br>
+    <span class="green">●</span> vibelo · jaguar sheet
+  </div>
+
+  <!-- Safe area: 1235 × 338 centered, visible on every device -->
+  <div class="safe-area">
+    <div class="prompt">
+      <span class="chevron">&gt;</span>
+      <span class="path">~/youtube</span>
+      cat about.md
+    </div>
+    <h1 class="name">Leandro Zubrezki</h1>
+    <p class="tagline">
+      indie maker building products in public<br>
+      <span class="accent">new builds</span> · <span class="green">claude deep dives</span> · weekly
+    </p>
+    <div class="cta">$ ./subscribe<span class="cursor"></span></div>
+  </div>
+</body>
+</html>
